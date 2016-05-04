@@ -1,0 +1,4 @@
+---
+- name: apply sshd changes
+  service: name=ssh state=restarted
+  become: true

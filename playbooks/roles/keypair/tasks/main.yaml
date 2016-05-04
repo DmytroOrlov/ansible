@@ -1,0 +1,6 @@
+- name: add keypair
+  ec2_key:
+    region: "{{ region }}"
+    name: "{{ key_name }}"
+    key_material: "{{ item }}"
+  with_file: "file/id_rsa.pub"

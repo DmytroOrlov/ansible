@@ -1,0 +1,7 @@
+---
+region: eu-west-1
+ami_id: ami-8fd760f6
+key_name: ire
+subnets:
+  a: subnet-4b65732e # eu-west-1a
+  b: subnet-5c84bb2b # eu-west-1b

@@ -1,0 +1,15 @@
+---
+- block:
+  - name: create a dir for docker ca.crt file
+    file:
+      path: "/etc/docker/certs.d/puma.rnd.datawerks.de:5000"
+      state: directory
+      mode: 0750
+      recurse: yes
+  - name: dance around docker registry
+    copy:
+      src: "domain.crt"
+      dest: "/etc/docker/certs.d/puma.rnd.datawerks.de:5000/ca.crt"
+    notify:
+    - restart docker
+  become: yes

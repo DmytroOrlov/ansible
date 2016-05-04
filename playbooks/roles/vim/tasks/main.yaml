@@ -1,0 +1,9 @@
+---
+- block:
+  - name: install vim
+    package:
+      name: vim
+      state: present
+    notify:
+    - change editor to vim
+  become: yes

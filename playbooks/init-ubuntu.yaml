@@ -1,0 +1,10 @@
+# ansible-playbook --inventory=inventory/ubuntu init-ubuntu.yaml
+---
+- hosts: ubuntu
+  roles:
+    - role: sshd
+    - role: jdk
+    - role: vim
+    - role: screen
+    - role: docker
+    - role: cjdns

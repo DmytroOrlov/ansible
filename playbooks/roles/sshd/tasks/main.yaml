@@ -1,0 +1,8 @@
+---
+- name: disable ssh PasswordAuthentication
+  lineinfile:
+    line: 'PasswordAuthentication no'
+    path: /etc/ssh/sshd_config
+  notify:
+  - apply sshd changes
+  become: yes

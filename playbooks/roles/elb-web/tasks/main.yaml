@@ -1,0 +1,41 @@
+- name: Gather facts for ire.web instance
+  ec2_instance_facts:
+    region: "{{ region }}"
+    filters:
+      "tag:Name": ire.web
+  register: ec2_facts
+- name: Add all instance public IPs to host group
+  add_host: hostname={{ item.public_ip_address }} groups=ec2hosts
+  with_items: "{{ ec2_facts.instances }}"
+  changed_when: False
+- elb_target_group:
+    name: tg-web
+    region: "{{ region }}"
+    protocol: http
+    port: 9000
+    vpc_id: vpc-5bc9e43e
+    health_check_path: /health
+    healthy_threshold_count: 2
+    unhealthy_threshold_count: 2
+    health_check_timeout: 2
+    health_check_interval: 5
+    targets: "{{ ec2_facts | json_query('instances[*].{Id: instance_id}') | map('combine', {'Port':9000}) | list }}"
+    state: present
+    wait_timeout: 60
+    wait: True
+- elb_application_lb:
+    name: elb-web
+    region: "{{ region }}"
+    subnets: "{{ subnets|json_query('*') }}"
+    security_groups:
+      - web
+    listeners:
+      - Protocol: HTTP
+        Port: 80
+        DefaultActions:
+          - Type: forward
+            TargetGroupName: tg-web
+    state: present
+  register: elb
+- name: Show elb
+  debug: msg={{ elb }}

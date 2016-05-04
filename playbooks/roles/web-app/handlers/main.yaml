@@ -1,0 +1,6 @@
+- name: update service list
+  command: systemctl daemon-reload
+  become: yes
+- name: restart web.service
+  service: name=web state=restarted
+  become: yes

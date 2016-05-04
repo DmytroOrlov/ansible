@@ -1,0 +1,9 @@
+---
+- name: Remove tag
+  ec2_tag:
+    region: "{{ region }}"
+    resource: "{{ item }}"
+    state: absent
+    tags:
+      Name: ire.web
+  with_items: "{{ ec2.instance_ids }}"

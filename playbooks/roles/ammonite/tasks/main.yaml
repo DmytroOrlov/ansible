@@ -1,0 +1,14 @@
+---
+- name: Create predef directory
+  file: path=~/.ammonite state=directory
+- name: get_url predef.sc
+  get_url:
+    url: https://git.io/vHaKQ
+    dest: ~/.ammonite/predef.sc
+- name:
+  get_url:
+    url: https://git.io/vdNv2
+    dest: /usr/local/bin/amm
+  become: True
+- name: Allow amm execution
+  file: path=/usr/local/bin/amm mode=0755

@@ -1,0 +1,15 @@
+- name: copy web.service
+  copy: src=web.service dest=/etc/systemd/system/web.service
+  become: yes
+  notify:
+    - update service list
+- name: synchronize web-app stage
+  synchronize: src=../../web-app-seed/target/universal/stage/ dest=~/web-app delete=yes rsync_opts="--exclude=logs"
+  notify:
+    - restart web.service
+- template: src=production.conf dest=/home/ubuntu/production.conf
+  notify:
+    - restart web.service
+- name: enable web.service
+  service: name=web state=started enabled=yes
+  become: yes

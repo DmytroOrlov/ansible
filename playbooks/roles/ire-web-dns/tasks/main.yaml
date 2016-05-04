@@ -1,0 +1,9 @@
+- name: Add DNS name
+  route53:
+    state: present
+    overwrite: yes
+    zone: bibliman.com
+    record: "{{ zone }}.web.bibliman.com"
+    type: A
+    value: "{{ item.public_ip }}"
+  with_items: "{{ ec2.instances }}"

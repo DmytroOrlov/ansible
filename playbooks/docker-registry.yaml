@@ -1,0 +1,5 @@
+# ansible-playbook --inventory=inventory/ubuntu docker-registry.yaml
+---
+- hosts: all
+  roles:
+    - role: docker-registry

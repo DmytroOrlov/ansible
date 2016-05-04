@@ -1,0 +1,20 @@
+- name: Provision ire.web instance
+  ec2:
+    region: "{{ region }}"
+    key_name: "{{ key_name }}"
+    image: "{{ ami_id }}"
+    group: ssh-play
+    instance_type: t2.micro
+    assign_public_ip: yes
+    vpc_subnet_id: "{{ subnets[zone] }}"
+    exact_count: "{{ ec2_count }}"
+    count_tag:
+      Name: ire.web
+      Zone: "{{ zone }}"
+    instance_tags:
+      Name: ire.web
+      Zone: "{{ zone }}"
+    wait: "{{ wait | default('no') }}"
+  register: ec2
+- name: Show ec2
+  debug: msg={{ ec2 }}

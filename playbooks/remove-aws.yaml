@@ -1,0 +1,30 @@
+# ansible-playbook remove-aws.yaml
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    ec2_count: 0
+  roles:
+    - role: ire-web
+      vars:
+        zone: a
+    - role: tag
+      vars:
+        a:
+    - role: ire-web
+      vars:
+        zone: b
+    - role: tag
+      vars:
+        b:
+  tasks:
+    - elb_application_lb:
+        name: elb-web
+        region: "{{ region }}"
+        state: absent
+        wait: True
+    - elb_target_group:
+        name: tg-web
+        region: "{{ region }}"
+        state: absent

@@ -1,0 +1,6 @@
+- block:
+  - name: install ntp
+    package:
+      name: ntp
+      state: latest
+  become: yes

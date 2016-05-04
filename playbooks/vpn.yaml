@@ -1,0 +1,5 @@
+# ansible-playbook --inventory=inventory/volia vpn.yaml
+---
+- hosts: all
+  roles:
+    - role: vpn

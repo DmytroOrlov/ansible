@@ -1,0 +1,10 @@
+- name: Add ELB DNS name
+  route53:
+    state: present
+    overwrite: yes
+    zone: bibliman.com
+    record: web.bibliman.com
+    type: A
+    value: "{{ elb.dns_name }}"
+    alias: True
+    alias_hosted_zone_id: "{{ elb.canonical_hosted_zone_id }}"

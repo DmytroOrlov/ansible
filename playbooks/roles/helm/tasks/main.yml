@@ -1,0 +1,24 @@
+---
+- name: get_url helm-v2.7.2-linux-amd64.tar.gz
+  get_url:
+    url: https://kubernetes-helm.storage.googleapis.com/helm-v2.7.2-linux-amd64.tar.gz
+    dest: /tmp/helm.tar.gz
+- name: unarchive /tmp/helm.tar.gz
+  unarchive:
+    src: /tmp/helm.tar.gz
+    dest: /tmp
+    remote_src: yes
+- name: Create bin directory
+  file:
+    path: ~/bin
+    state: directory
+- name: fetch helm
+  fetch: src=/tmp/linux-amd64/helm dest=./ flat=yes
+- name: copy helm
+  copy: src=helm dest=~/bin/helm mode="a+x"
+- name: check permissions
+  command: "kubectl get clusterrolebinding -o jsonpath={.items[?(@.metadata.name==\\'supdefault\\')].metadata.name}"
+  register: result
+  changed_when: False
+- command: kubectl create clusterrolebinding supdefault --clusterrole=cluster-admin --serviceaccount=kube-system:default
+  when: result.stdout != "supdefault"

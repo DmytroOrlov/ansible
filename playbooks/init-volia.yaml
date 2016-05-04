@@ -1,0 +1,6 @@
+# ansible-playbook --inventory=inventory/volia init-volia.yaml
+---
+- hosts: volia
+  roles:
+    - role: vpn
+    - role: cjdns-volia

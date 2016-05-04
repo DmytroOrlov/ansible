@@ -1,0 +1,38 @@
+# ansible-playbook --key-file=~/.ssh/ire/id_rsa --extra-vars="secret=STAGE" aws.yaml
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    ec2_count: 1
+    wait: yes
+  roles:
+    - role: keypair
+    - role: security-group
+    - role: ire-web
+      vars:
+        zone: a
+    - role: ire-web-dns
+      vars:
+        zone: a
+    - role: ire-web
+      vars:
+        zone: b
+    - role: ire-web-dns
+      vars:
+        zone: b
+    - role: elb-web
+    - role: elb-web-dns
+
+- hosts: ec2hosts
+  user: ubuntu
+  gather_facts: False
+  roles:
+    - role: python-minimal
+- hosts: ec2hosts
+  user: ubuntu
+  name: Configure ire.web
+  roles:
+    - role: jdk
+    - role: ntpd
+    - role: web-app

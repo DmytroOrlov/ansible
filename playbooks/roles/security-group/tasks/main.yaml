@@ -1,0 +1,21 @@
+- name: add ssh-play security group
+  ec2_group:
+    name: ssh-play
+    region: "{{ region }}"
+    description: ssh, play enabled
+    rules:
+      - proto: tcp
+        ports: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        ports: 9000
+        cidr_ip: 0.0.0.0/0
+- name: add web security group
+  ec2_group:
+    name: web
+    region: "{{ region }}"
+    description: http port enabled
+    rules:
+      - proto: tcp
+        ports: 80
+        cidr_ip: 0.0.0.0/0

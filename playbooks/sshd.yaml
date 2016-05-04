@@ -1,0 +1,5 @@
+# ansible-playbook --inventory=inventory/ubuntu sshd.yaml
+---
+- hosts: all
+  roles:
+    - role: sshd

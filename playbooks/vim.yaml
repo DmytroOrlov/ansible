@@ -1,0 +1,5 @@
+# ansible-playbook --inventory=inventory/ubuntu vim.yaml
+---
+- hosts: all
+  roles:
+    - role: vim

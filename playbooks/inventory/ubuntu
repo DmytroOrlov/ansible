@@ -1,0 +1,1 @@
+ubuntu ansible_host=ubuntu ansible_user=ubuntu
