@@ -20,6 +20,6 @@ Vagrant.configure(2) do |config|
       GROUP => [HOST]
     }
     ansible.playbook = "../../strikead/shrike/playbooks/jenkins-master.yml"
-    ansible.extra_vars = { skip_apt_update: true }
+#   ansible.extra_vars = { dev_mode_skip_apt_update: true }
   end
 end
