@@ -1,0 +1,26 @@
+---
+- hosts: web
+  remote_user: ubuntu
+  become: yes
+  vars:
+    service_name: "cjdns"
+    source_name: "cjdns-ubuntu"
+
+  tasks:
+    - apt: pkg=nodejs state=latest update_cache=yes cache_valid_time=2500000
+    - name: add service
+      copy: src=~/repo/{{ source_name }}/contrib/systemd/{{ service_name }}.service dest=/etc/systemd/system
+      notify:
+        - update service list
+    - meta: flush_handlers
+
+    - name: add cjdroute to path
+      copy: src=~/repo/{{ source_name }}/cjdroute dest=/usr/bin/cjdroute mode="a+x"
+    - name: copy cjdroute.conf
+      copy: src=~/repo/{{ source_name }}/cjdroute.conf dest=/etc/cjdroute.conf mode=600
+    - name: start service
+      service: name={{ service_name }} state=restarted enabled=yes
+
+  handlers:
+    - name: update service list
+      command: systemctl daemon-reload
