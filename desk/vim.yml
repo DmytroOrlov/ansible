@@ -1,0 +1,16 @@
+---
+- hosts: desk
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: install vim
+      package:
+        name: vim
+        state: latest
+      notify:
+        - change editor to vim
+    - meta: flush_handlers
+
+  handlers:
+    - name: change editor to vim
+      command: update-alternatives --set editor /usr/bin/vim.basic
