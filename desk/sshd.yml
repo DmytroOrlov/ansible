@@ -1,0 +1,14 @@
+---
+- hosts: desk
+  remote_user: ubuntu
+  become: yes
+  tasks:
+    - name: disable ssh PasswordAuthentication
+      shell: echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
+      notify:
+        - apply sshd changes
+    - meta: flush_handlers
+
+  handlers:
+    - name: apply sshd changes
+      service: name=ssh state=restarted
