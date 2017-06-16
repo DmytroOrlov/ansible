@@ -1,5 +1,5 @@
 ---
-- hosts: desk
+- hosts: volia
   remote_user: ubuntu
   become: yes
   tasks:
@@ -21,14 +21,14 @@
     - name: fetch cjdroute
       fetch: src=/tmp/cjdns/cjdroute dest=./ flat=yes
     - name: fetch cjdns.service
-      fetch: src=/tmp/cjdns/contrib/systemd/cjdns.service dest=./ flat=yes
+      fetch: src=/tmp/cjdns/contrib/upstart/cjdns.conf dest=./ flat=yes
     - name: add cjdroute to path
       copy: src=cjdroute dest=/usr/bin/cjdroute mode="a+x"
     - name: copy cjdroute.conf
-      copy: src=~/repo/cjdns/cjdroute.conf-desk dest=/etc/cjdroute.conf mode=600
-    - name: add cjdns.service
-      copy: src=cjdns.service dest=/etc/systemd/system/cjdns.service
+      copy: src=~/repo/cjdns/cjdroute.conf-volia dest=/etc/cjdroute.conf mode=600
+    - name: add cjdns.conf
+      copy: src=cjdns.conf dest=/etc/init/cjdns.conf
     - name: update service list
-      command: systemctl daemon-reload
+      command: initctl reload-configuration
     - name: start service
       service: name=cjdns state=restarted enabled=yes
