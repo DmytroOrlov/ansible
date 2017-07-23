@@ -1,6 +1,5 @@
 ---
 - hosts: desk
-  remote_user: ubuntu
   become: yes
   tasks:
     - name: disable ssh PasswordAuthentication
