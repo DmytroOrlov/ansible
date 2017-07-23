@@ -5,7 +5,7 @@
     - name: install vim
       package:
         name: vim
-        state: latest
+        state: present
       notify:
         - change editor to vim
     - meta: flush_handlers
