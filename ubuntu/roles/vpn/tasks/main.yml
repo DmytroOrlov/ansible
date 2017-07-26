@@ -1,0 +1,19 @@
+---
+  - block:
+    - name: create config folder
+      file: path=/etc/openvpn state=directory
+    - name: copy configs
+      copy: src=~/repo/vpn/server/ dest=/etc/openvpn
+    - name: install openvpn
+      package:
+        name: openvpn
+        state: latest
+    - name: start and enable service
+      service: name=openvpn state=started enabled=yes
+    - name: enable forwarding
+      shell: echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+    - name: apply settings
+      command: sysctl -p
+    - name: turn on forwarding
+      command: iptables -t nat -I POSTROUTING -o eth0 -s 10.8.0.0/24 -j MASQUERADE
+    become: yes
