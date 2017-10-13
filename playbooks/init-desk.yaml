@@ -9,9 +9,9 @@
 - hosts: vim
   roles:
     - role: vim
-#- hosts: screen
-  #roles:
-    #- role: screen
+- hosts: screen
+  roles:
+    - role: screen
 #- hosts: docker
   #roles:
     #- role: docker
