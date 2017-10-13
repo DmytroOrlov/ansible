@@ -1,5 +1,0 @@
-# ansible-playbook --inventory=inventory/desk jdk.yaml
----
-- hosts: jdk
-  roles:
-    - role: jdk

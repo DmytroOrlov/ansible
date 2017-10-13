@@ -1,0 +1,20 @@
+# ansible-playbook --inventory=inventory/desk init-desk.yaml
+---
+- hosts: sshd
+  roles:
+    - role: sshd
+- hosts: jdk
+  roles:
+    - role: jdk
+#- hosts: vim
+  #roles:
+    #- role: vim
+#- hosts: screen
+  #roles:
+    #- role: screen
+#- hosts: docker
+  #roles:
+    #- role: docker
+#- hosts: cjdns
+  #roles:
+    #- role: cjdns

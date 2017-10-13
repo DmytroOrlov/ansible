@@ -1,8 +1,0 @@
----
-- hosts: desk
-  become: yes
-  tasks:
-    - name: disable ssh PasswordAuthentication
-      shell: echo "PasswordAuthentication no" >> /etc/ssh/sshd_config
-    - name: apply sshd changes
-      service: name=ssh state=restarted
