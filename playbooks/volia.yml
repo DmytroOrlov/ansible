@@ -1,5 +1,0 @@
-# $ ansible-playbook volia.yml
----
-- hosts: volia
-  roles:
-    - role: vpn
