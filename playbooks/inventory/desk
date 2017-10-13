@@ -1,2 +1,2 @@
 [desk]
-d
+d ansible_user=ubuntu

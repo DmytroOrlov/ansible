@@ -7,4 +7,4 @@
     - role: vim
     - role: screen
     - role: docker
-    #- role: cjdns
+    - role: cjdns
