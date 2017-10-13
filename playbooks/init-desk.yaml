@@ -6,9 +6,9 @@
 - hosts: jdk
   roles:
     - role: jdk
-#- hosts: vim
-  #roles:
-    #- role: vim
+- hosts: vim
+  roles:
+    - role: vim
 #- hosts: screen
   #roles:
     #- role: screen
