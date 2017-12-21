@@ -4,7 +4,7 @@
   notify:
     - update service list
 - name: synchronize web-app stage
-  synchronize: src=../../web-app-seed/target/universal/stage/ dest=~/web-app delete=yes rsync_opts="--exclude=logs"
+  synchronize: src="{{ web_app_src }}/" dest=~/web-app delete=yes rsync_opts="--exclude=logs"
   notify:
     - restart web.service
 - template: src=production.conf dest=/home/ubuntu/production.conf
