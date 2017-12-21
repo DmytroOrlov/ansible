@@ -1,4 +1,5 @@
 ---
+dns_zone: bibliman.com
 region: eu-west-1
 ami_id: ami-8fd760f6
 key_name: ire

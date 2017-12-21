@@ -2,8 +2,8 @@
   route53:
     state: present
     overwrite: yes
-    zone: bibliman.com
-    record: web.bibliman.com
+    zone: "{{ dns_zone }}"
+    record: "web.{{ dns_zone }}"
     type: A
     value: "{{ elb.dns_name }}"
     alias: True
