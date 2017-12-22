@@ -1,0 +1,1 @@
+sudo killall cjdroute; cp files/$1/cjdroute /tmp && echo $P > p && files/$1/cjdroute --genconf | tee >(sed -e 's/\/\/.*$//' | tr '\n' ' ' | sed -e 's/\/\*.*\*\///' | jq .ipv6 | xargs -I % ansible-playbook --extra-vars="node=$(hostname -s) node_ip=%" --vault-password-file p dns.yaml; rm p) | sudo /tmp/cjdroute
