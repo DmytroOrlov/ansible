@@ -1,6 +1,7 @@
 ---
 dns_zone: bibliman.com
-web_app_src: ../../web-app-seed/target/universal/stage
+web_app_src: ../../rds-test/target/universal/stage
+web_app_bin: rds-test
 region: eu-west-1
 ami_id: ami-8fd760f6
 key_name: ire

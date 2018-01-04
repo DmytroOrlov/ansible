@@ -1,5 +1,7 @@
 - name: Gather facts for ire.web instance
   ec2_instance_facts:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
     region: "{{ region }}"
     filters:
       "tag:Name": ire.web
@@ -23,7 +25,11 @@
     state: present
     wait_timeout: 60
     wait: True
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
 - elb_application_lb:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
     name: elb-web
     region: "{{ region }}"
     subnets: "{{ subnets|json_query('*') }}"

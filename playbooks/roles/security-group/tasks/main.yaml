@@ -10,6 +10,8 @@
       - proto: tcp
         ports: 9000
         cidr_ip: 0.0.0.0/0
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
 - name: add web security group
   ec2_group:
     name: web
@@ -19,3 +21,5 @@
       - proto: tcp
         ports: 80
         cidr_ip: 0.0.0.0/0
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
