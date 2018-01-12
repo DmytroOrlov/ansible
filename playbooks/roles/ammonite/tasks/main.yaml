@@ -9,6 +9,6 @@
   get_url:
     url: https://git.io/vdNv2
     dest: /usr/local/bin/amm
-  become: True
+  become: yes
 - name: Allow amm execution
   file: path=/usr/local/bin/amm mode=0755
