@@ -15,7 +15,7 @@
     region: "{{ region }}"
     protocol: http
     port: 9000
-    vpc_id: vpc-5bc9e43e
+    vpc_id: "{{ vpc_id }}"
     health_check_path: /health
     healthy_threshold_count: 2
     unhealthy_threshold_count: 2

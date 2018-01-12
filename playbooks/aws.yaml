@@ -1,4 +1,4 @@
-# ansible-playbook --ask-vault-pass --key-file=~/.ssh/ire/id_rsa --extra-vars="secret=STAGE" aws.yaml
+# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --ask-vault-pass --key-file=~/.ssh/ire/id_rsa --extra-vars="secret=STAGE" aws.yaml
 ---
 - hosts: localhost
   connection: local
@@ -27,6 +27,7 @@
 - hosts: ec2hosts
   user: ubuntu
   gather_facts: False
+  name: PreConfigure ire.web
   roles:
     - role: python-minimal
 - hosts: ec2hosts

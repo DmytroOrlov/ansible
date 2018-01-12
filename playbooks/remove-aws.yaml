@@ -1,4 +1,4 @@
-# ansible-playbook --ask-vault-pass remove-aws.yaml
+# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --ask-vault-pass remove-aws.yaml
 - hosts: localhost
   connection: local
   gather_facts: False
