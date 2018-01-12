@@ -3,7 +3,7 @@
     region: "{{ region }}"
     key_name: "{{ key_name }}"
     image: "{{ ami_id }}"
-    group: ssh-play
+    group: "{{ ssh_play_group }}"
     instance_type: t2.micro
     assign_public_ip: yes
     vpc_subnet_id: "{{ subnets[zone] }}"

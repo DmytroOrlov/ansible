@@ -1,6 +1,6 @@
 - name: add ssh-play security group
   ec2_group:
-    name: ssh-play
+    name: "{{ ssh_play_group }}"
     region: "{{ region }}"
     description: ssh, play enabled
     rules:
