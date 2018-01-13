@@ -25,14 +25,14 @@
     group: "{{ ssh_play_group }}"
     instance_type: t2.micro
     assign_public_ip: yes
-    vpc_subnet_id: "{{ subnets[zone] }}"
+    vpc_subnet_id: "{{ subnets[availability_zone] }}"
     exact_count: "{{ ec2_count }}"
     count_tag:
       Name: ire.web
-      Zone: "{{ zone }}"
+      Zone: "{{ availability_zone }}"
     instance_tags:
       Name: ire.web
-      Zone: "{{ zone }}"
+      Zone: "{{ availability_zone }}"
     wait: "{{ wait | default('no') }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"

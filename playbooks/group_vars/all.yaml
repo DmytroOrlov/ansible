@@ -1,11 +1,11 @@
 ---
 region: eu-west-1
+subnets:
+  eu-west-1a: subnet-4b65732e
+  eu-west-1b: subnet-5c84bb2b
 key_name: ire
 ami_id: ami-8fd760f6
 ssh_play_group: ssh-play
-subnets:
-  a: subnet-4b65732e # eu-west-1a
-  b: subnet-5c84bb2b # eu-west-1b
 dns_zone: bibliman.com
 web_app_src: ../../rds-test/target/universal/stage
 web_app_bin: rds-test

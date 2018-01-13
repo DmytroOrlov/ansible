@@ -12,16 +12,16 @@
     #- role: vpc-net
     - role: ire-web
       vars:
-        zone: a
+        availability_zone: eu-west-1a
     - role: ire-web-dns
       vars:
-        zone: a
+        availability_zone: eu-west-1a
     - role: ire-web
       vars:
-        zone: b
+        availability_zone: eu-west-1b
     - role: ire-web-dns
       vars:
-        zone: b
+        availability_zone: eu-west-1b
     - role: elb-web
     - role: elb-web-dns
 
