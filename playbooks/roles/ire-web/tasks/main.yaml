@@ -21,7 +21,7 @@
     key_name: "{{ key_name }}"
     image: "{{ ami_id }}"
     group: "{{ ssh_play_group }}"
-    instance_type: t2.micro
+    instance_type: "{{ instance_type }}"
     assign_public_ip: yes
     vpc_subnet_id: "{{ items[0] }}"
     exact_count: "{{ ec2_count }}"
