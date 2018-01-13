@@ -1,11 +1,12 @@
 ---
 region: eu-west-1
-ami_id: ami-8fd760f6
+ami_id: ami-4d46d534
 instance_type: t2.micro
 dns_zone: bibliman.com
 api_domain: api
 web_app_src: ../../rds-test/target/universal/stage
 web_app_bin: rds-test
+postgres: postgres.c4pfhk2n2tw5.eu-west-1.rds.amazonaws.com
 
 key_name: ire
 ssh_play_group: ssh-play
