@@ -14,6 +14,8 @@
     region: "{{ region }}"
     #filters:
       #"tag:Name": ire.web
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
 #- name: Show vpc
   #debug: msg={{ vpc }}

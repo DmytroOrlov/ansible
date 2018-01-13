@@ -1,3 +1,22 @@
+- ec2_vpc_net_facts:
+    region: "{{ region }}"
+    #filters:
+      #"tag:Name": ire.web
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: vpc
+#- name: Show vpc
+  #debug: msg={{ vpc }}
+- ec2_vpc_subnet_facts:
+    region: "{{ region }}"
+    filters:
+      vpc-id: "{{ item.id }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  with_items: "{{ vpc.vpcs }}"
+  register: subnet
+#- name: Show subnet
+  #debug: msg={{ subnet.results[0].subnets }}
 - name: Provision ire.web instance
   ec2:
     region: "{{ region }}"
