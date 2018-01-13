@@ -6,6 +6,7 @@
     filters:
       "tag:Name": ire.web
   register: ec2_facts
+#- debug: var=ec2_facts
 - name: Add all instance public IPs to host group
   add_host: hostname={{ item.public_ip_address }} groups=ec2hosts
   with_items: "{{ ec2_facts.instances }}"
@@ -36,12 +37,20 @@
     wait: True
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+- ec2_vpc_subnet_facts:
+    region: "{{ region }}"
+    filters:
+      vpc-id: "{{ vpc_id }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+  register: subnet
+#- debug: msg={{ subnet | json_query('subnets[*].id') }}
 - elb_application_lb:
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
     name: elb-web
     region: "{{ region }}"
-    subnets: "{{ subnets|json_query('*') }}"
+    subnets: "{{ subnet | json_query('subnets[*].id') }}"
     security_groups:
       - web
     listeners:

@@ -14,7 +14,7 @@
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: subnet
-#- debug: var={{ subnet.results[0].subnets }}
+#- debug: msg={{ subnet }}
 - name: Provision ire.web instance
   ec2:
     region: "{{ region }}"
@@ -23,7 +23,7 @@
     group: "{{ ssh_play_group }}"
     instance_type: t2.micro
     assign_public_ip: yes
-    vpc_subnet_id: "{{ subnets[availability_zone] }}"
+    vpc_subnet_id: "{{ items[0] }}"
     exact_count: "{{ ec2_count }}"
     count_tag:
       Name: ire.web
@@ -34,5 +34,8 @@
     wait: "{{ wait | default('no') }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+  vars:
+    subnet_query: "subnets[?availability_zone=='{{ availability_zone }}'].id"
+    items: "{{ subnet | json_query(subnet_query) }}"
   register: ec2
 #- debug: var=ec2
