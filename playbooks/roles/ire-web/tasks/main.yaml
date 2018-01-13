@@ -6,13 +6,13 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
 #- debug: var=vpc
+- set_fact: vpc_id={{ vpc.vpcs[0].id }}
 - ec2_vpc_subnet_facts:
     region: "{{ region }}"
     filters:
-      vpc-id: "{{ item.id }}"
+      vpc-id: "{{ vpc_id }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  with_items: "{{ vpc.vpcs }}"
   register: subnet
 #- debug: var={{ subnet.results[0].subnets }}
 - name: Provision ire.web instance

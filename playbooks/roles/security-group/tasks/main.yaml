@@ -6,11 +6,12 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
 #- debug: var=vpc
+- set_fact: vpc_id={{ vpc.vpcs[0].id }}
 - name: add ssh-play security group
   ec2_group:
     name: "{{ ssh_play_group }}"
     region: "{{ region }}"
-    vpc_id: "{{ item.id }}"
+    vpc_id: "{{ vpc_id }}"
     description: ssh, play enabled
     rules:
       - proto: tcp
@@ -21,12 +22,11 @@
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  with_items: "{{ vpc.vpcs }}"
 - name: add web security group
   ec2_group:
     name: web
     region: "{{ region }}"
-    vpc_id: "{{ item.id }}"
+    vpc_id: "{{ vpc_id }}"
     description: http port enabled
     rules:
       - proto: tcp
@@ -34,4 +34,3 @@
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  with_items: "{{ vpc.vpcs }}"

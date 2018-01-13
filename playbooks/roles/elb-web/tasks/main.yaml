@@ -18,12 +18,13 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
 #- debug: var=vpc
+- set_fact: vpc_id={{ vpc.vpcs[0].id }}
 - elb_target_group:
     name: tg-web
     region: "{{ region }}"
     protocol: http
     port: 9000
-    vpc_id: "{{ item.id }}"
+    vpc_id: "{{ vpc_id }}"
     health_check_path: /health
     healthy_threshold_count: 2
     unhealthy_threshold_count: 2
@@ -35,7 +36,6 @@
     wait: True
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-  with_items: "{{ vpc.vpcs }}"
 - elb_application_lb:
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
