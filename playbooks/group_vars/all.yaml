@@ -1,8 +1,9 @@
 ---
 region: eu-west-1
-key_name: ire
 ami_id: ami-8fd760f6
-ssh_play_group: ssh-play
 dns_zone: bibliman.com
 web_app_src: ../../rds-test/target/universal/stage
 web_app_bin: rds-test
+
+key_name: ire
+ssh_play_group: ssh-play

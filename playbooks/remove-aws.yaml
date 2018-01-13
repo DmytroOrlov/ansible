@@ -7,13 +7,13 @@
   roles:
     - role: ire-web
       vars:
-        availability_zone: eu-west-1a
+        availability_zone: "{{ region }}a"
     - role: tag
       vars:
         a:
     - role: ire-web
       vars:
-        availability_zone: eu-west-1b
+        availability_zone: "{{ region }}b"
     - role: tag
       vars:
         b:
@@ -31,6 +31,7 @@
         state: absent
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
+      retries: 10
 #- hosts: localhost
   #connection: local
   #gather_facts: False
