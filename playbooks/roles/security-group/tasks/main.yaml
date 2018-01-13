@@ -1,7 +1,15 @@
+- ec2_vpc_net_facts:
+    region: "{{ region }}"
+    #filters:
+      #"tag:Name": ire.web
+  register: vpc
+#- name: Show vpc
+  #debug: msg={{ vpc }}
 - name: add ssh-play security group
   ec2_group:
     name: "{{ ssh_play_group }}"
     region: "{{ region }}"
+    vpc_id: "{{ item.id }}"
     description: ssh, play enabled
     rules:
       - proto: tcp
@@ -12,10 +20,12 @@
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+  with_items: "{{ vpc.vpcs }}"
 - name: add web security group
   ec2_group:
     name: web
     region: "{{ region }}"
+    vpc_id: "{{ item.id }}"
     description: http port enabled
     rules:
       - proto: tcp
@@ -23,3 +33,4 @@
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
+  with_items: "{{ vpc.vpcs }}"

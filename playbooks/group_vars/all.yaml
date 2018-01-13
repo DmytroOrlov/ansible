@@ -7,6 +7,5 @@ subnets:
   a: subnet-4b65732e # eu-west-1a
   b: subnet-5c84bb2b # eu-west-1b
 dns_zone: bibliman.com
-vpc_id: vpc-5bc9e43e
 web_app_src: ../../rds-test/target/universal/stage
 web_app_bin: rds-test

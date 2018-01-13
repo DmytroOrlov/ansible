@@ -1,0 +1,10 @@
+- ec2_vpc_net:
+    name: ire.web
+    cidr_block: 172.31.0.0/16
+    region: "{{ region }}"
+    tags:
+      Name: ire.web
+    state: "{{ state | default('present') }}"
+  register: vpc
+#- name: Show vpc
+  #debug: msg={{ vpc }}

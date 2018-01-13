@@ -31,3 +31,10 @@
         state: absent
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
+#- hosts: localhost
+  #connection: local
+  #gather_facts: False
+  #roles:
+    #- role: vpc-net
+      #vars:
+        #state: absent
