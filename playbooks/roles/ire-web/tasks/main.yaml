@@ -5,8 +5,7 @@
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
-#- name: Show vpc
-  #debug: msg={{ vpc }}
+#- debug: var=vpc
 - ec2_vpc_subnet_facts:
     region: "{{ region }}"
     filters:
@@ -15,8 +14,7 @@
     aws_secret_key: "{{ aws_secret_key }}"
   with_items: "{{ vpc.vpcs }}"
   register: subnet
-#- name: Show subnet
-  #debug: msg={{ subnet.results[0].subnets }}
+#- debug: var={{ subnet.results[0].subnets }}
 - name: Provision ire.web instance
   ec2:
     region: "{{ region }}"
@@ -37,5 +35,4 @@
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: ec2
-#- name: Show ec2
-  #debug: msg={{ ec2 }}
+#- debug: var=ec2

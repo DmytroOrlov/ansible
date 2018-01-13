@@ -6,5 +6,4 @@
       Name: ire.web
     state: "{{ state | default('present') }}"
   register: vpc
-#- name: Show vpc
-  #debug: msg={{ vpc }}
+#- debug: var=vpc

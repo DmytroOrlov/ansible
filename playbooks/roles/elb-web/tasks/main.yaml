@@ -17,8 +17,7 @@
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
-#- name: Show vpc
-  #debug: msg={{ vpc }}
+#- debug: var=vpc
 - elb_target_group:
     name: tg-web
     region: "{{ region }}"
@@ -53,5 +52,4 @@
             TargetGroupName: tg-web
     state: present
   register: elb
-#- name: Show elb
-  #debug: msg={{ elb }}
+#- debug: var=elb
