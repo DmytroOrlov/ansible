@@ -24,6 +24,7 @@
         availability_zone: "{{ region }}b"
     - role: elb-web
     - role: elb-web-dns
+    - role: postgres-security-group
 
 - hosts: ec2hosts
   user: ubuntu
