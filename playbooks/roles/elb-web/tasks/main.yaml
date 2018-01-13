@@ -52,7 +52,7 @@
     region: "{{ region }}"
     subnets: "{{ subnet | json_query('subnets[*].id') }}"
     security_groups:
-      - web
+      - "{{ web_group }}"
     listeners:
       - Protocol: HTTP
         Port: 80

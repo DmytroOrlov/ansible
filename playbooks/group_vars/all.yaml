@@ -7,3 +7,4 @@ web_app_bin: rds-test
 
 key_name: ire
 ssh_play_group: ssh-play
+web_group: web

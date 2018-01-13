@@ -12,7 +12,7 @@
     name: "{{ ssh_play_group }}"
     region: "{{ region }}"
     vpc_id: "{{ vpc_id }}"
-    description: ssh, play enabled
+    description: enable ssh, play
     rules:
       - proto: tcp
         ports: 22
@@ -24,7 +24,7 @@
     aws_secret_key: "{{ aws_secret_key }}"
 - name: add web security group
   ec2_group:
-    name: web
+    name: "{{ web_group }}"
     region: "{{ region }}"
     vpc_id: "{{ vpc_id }}"
     description: http port enabled
