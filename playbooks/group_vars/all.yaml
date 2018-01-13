@@ -3,6 +3,7 @@ region: eu-west-1
 ami_id: ami-8fd760f6
 instance_type: t2.micro
 dns_zone: bibliman.com
+api_domain: api
 web_app_src: ../../rds-test/target/universal/stage
 web_app_bin: rds-test
 

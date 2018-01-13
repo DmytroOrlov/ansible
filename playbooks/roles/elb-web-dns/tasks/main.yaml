@@ -3,7 +3,7 @@
     state: present
     overwrite: yes
     zone: "{{ dns_zone }}"
-    record: "web.{{ dns_zone }}"
+    record: "{{ api_domain }}.{{ dns_zone }}"
     type: A
     value: "{{ elb.dns_name }}"
     alias: True

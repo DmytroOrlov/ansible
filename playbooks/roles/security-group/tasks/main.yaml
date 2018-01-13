@@ -12,14 +12,14 @@
     name: "{{ ssh_play_group }}"
     region: "{{ region }}"
     vpc_id: "{{ vpc_id }}"
-    description: enable ssh, play
+    description: ssh, play enabled
     rules:
       - proto: tcp
         ports: 22
         cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        ports: 9000
-        cidr_ip: 0.0.0.0/0
+      #- proto: tcp
+        #ports: 9000
+        #cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
 - name: add web security group
