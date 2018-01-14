@@ -25,9 +25,7 @@
     upgrade: yes
     wait: yes
     license_model: postgresql-license
-    #security_groups: "{{ postgres_group }}"
     vpc_security_groups: "{{ group_facts.security_groups[0].group_id }}"
-    #zone: "{{ region }}a"
     region: "{{ region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"

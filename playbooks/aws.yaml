@@ -9,7 +9,6 @@
   roles:
     - role: keypair
     - role: security-group
-    #- role: vpc-net
     - role: ire-web
       vars:
         availability_zone: "{{ region }}a"
