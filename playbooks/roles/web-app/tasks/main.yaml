@@ -7,10 +7,6 @@
   synchronize: src="{{ web_app_src }}/" dest=~/web-app delete=yes rsync_opts="--exclude=logs"
   notify:
     - restart web.service
-- name: template production.conf
-  template: src=production.conf dest=/home/ubuntu/production.conf
-  notify:
-    - restart web.service
 - name: enable web.service
   service: name=web state=started enabled=yes
   become: yes

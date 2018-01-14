@@ -1,0 +1,33 @@
+- ec2_group_facts:
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    filters:
+      group-name:
+        - "{{ postgres_group }}"
+  register: group_facts
+#- debug: var=group_facts
+- rds:
+    command: create
+    #apply_immediately: yes
+    multi_zone: yes
+    instance_name: postgres
+    db_engine: postgres
+    db_name: postgres
+    username: postgres
+    password: "{{ rds_password }}"
+    instance_type: "{{ rds_instance_type }}"
+    size: 5
+    backup_retention: 7
+    publicly_accessible: no
+    tags:
+      Name: ire.web
+    upgrade: yes
+    wait: yes
+    license_model: postgresql-license
+    #security_groups: "{{ postgres_group }}"
+    vpc_security_groups: "{{ group_facts.security_groups[0].group_id }}"
+    #zone: "{{ region }}a"
+    region: "{{ region }}"
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
