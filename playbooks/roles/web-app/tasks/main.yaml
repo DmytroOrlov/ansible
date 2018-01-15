@@ -3,10 +3,16 @@
   become: yes
   notify:
     - update service list
+- name: create web-app folder
+  file:
+    path: ~/web/target/universal/stage
+    state: directory
 - name: synchronize web-app stage
-  synchronize: src="{{ web_app_src }}/" dest=~/web-app delete=yes rsync_opts="--exclude=logs"
+  synchronize: src="{{ web_app_src }}/" dest=~/web/target/universal/stage delete=yes rsync_opts="--exclude=logs"
   notify:
     - restart web.service
 - name: enable web.service
   service: name=web state=started enabled=yes
   become: yes
+- name: copy Dockerfile
+  copy: src="{{ web_app_src }}/../../../Dockerfile" dest=~/web/Dockerfile

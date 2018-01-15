@@ -17,8 +17,12 @@
 #- debug: var=rds_facts
 - set_fact: postgres={{ rds_facts.instance.endpoint }}
 #- debug: var=postgres
+- name: create web-app folder
+  file:
+    path: ~/web/target/universal/stage
+    state: directory
 - name: template production.conf
-  template: src=production.conf dest=/home/ubuntu/production.conf
+  template: src=production.conf dest=~/web/production.conf
   notify:
     - restart web.service
   delegate_to: "{{ item.public_ip_address }}"

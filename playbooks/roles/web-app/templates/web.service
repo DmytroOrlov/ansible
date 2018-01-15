@@ -4,7 +4,7 @@ Wants=network.target
 After=network.target
 
 [Service]
-ExecStart=/home/ubuntu/web-app/bin/{{ web_app_bin }} -Dpidfile.path=/dev/null -Dconfig.file=/home/ubuntu/production.conf
+ExecStart=/home/ubuntu/web/target/universal/stage/bin/{{ web_app_bin }} -Dpidfile.path=/dev/null -Dconfig.file=/home/ubuntu/web/production.conf
 Restart=always
 
 [Install]

@@ -25,6 +25,7 @@
     - role: elb-web-dns
     - role: postgres-security-group
     - role: create-rds
+    - role: collect-ec2hosts
 
 - hosts: ec2hosts
   user: ubuntu
@@ -38,6 +39,7 @@
   roles:
     - role: jdk
     - role: ntpd
+    - role: docker
     - role: web-app
 - hosts: localhost
   connection: local
@@ -45,3 +47,7 @@
   user: ubuntu
   roles:
     - role: production-conf
+- hosts: ec2hosts
+  user: ubuntu
+  roles:
+    - role: docker-build
