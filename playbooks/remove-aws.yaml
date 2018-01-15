@@ -5,13 +5,13 @@
   vars:
     ec2_count: 0
   roles:
-    - role: ire-web
+    - role: ire-api
       vars:
         availability_zone: "{{ region }}a"
     - role: tag
       vars:
         a:
-    - role: ire-web
+    - role: ire-api
       vars:
         availability_zone: "{{ region }}b"
     - role: tag
@@ -19,14 +19,14 @@
         b:
   tasks:
     - elb_application_lb:
-        name: elb-web
+        name: elb-api
         region: "{{ region }}"
         state: absent
         wait: True
         aws_access_key: "{{ aws_access_key }}"
         aws_secret_key: "{{ aws_secret_key }}"
     - elb_target_group:
-        name: tg-web
+        name: tg-api
         region: "{{ region }}"
         state: absent
         aws_access_key: "{{ aws_access_key }}"

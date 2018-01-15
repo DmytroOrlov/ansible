@@ -1,2 +1,2 @@
-- name: restart web.service
-  import_tasks: restart-web-service.yaml
+- name: restart api.service
+  import_tasks: restart-api-service.yaml

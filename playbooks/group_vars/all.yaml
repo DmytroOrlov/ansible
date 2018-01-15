@@ -5,12 +5,12 @@ instance_type: t2.micro
 rds_instance_type: db.t2.micro
 dns_zone: bibliman.com
 api_domain: api
-web_app_src: ../../rds-test/target/universal/stage
-web_app_bin: rds-test
+api_src: ../../rds-test/target/universal/stage
+api_bin: rds-test
 
 key_name: ire
 ssh_play_group: ssh-play
-web_group: web
+api_group: api
 postgres_group: postgres
 
 rds_password: !vault |

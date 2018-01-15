@@ -9,20 +9,20 @@
   roles:
     - role: keypair
     - role: security-group
-    - role: ire-web
+    - role: ire-api
       vars:
         availability_zone: "{{ region }}a"
-    - role: ire-web-dns
+    - role: ire-api-dns
       vars:
         availability_zone: "{{ region }}a"
-    - role: ire-web
+    - role: ire-api
       vars:
         availability_zone: "{{ region }}b"
-    - role: ire-web-dns
+    - role: ire-api-dns
       vars:
         availability_zone: "{{ region }}b"
-    - role: elb-web
-    - role: elb-web-dns
+    - role: elb-api
+    - role: elb-api-dns
     - role: postgres-security-group
     - role: create-rds
     - role: collect-ec2hosts
@@ -30,17 +30,17 @@
 - hosts: ec2hosts
   user: ubuntu
   gather_facts: False
-  name: PreConfigure ire.web
+  name: PreConfigure ire.api
   roles:
     - role: python-minimal
 - hosts: ec2hosts
   user: ubuntu
-  name: Configure ire.web
+  name: Configure ire.api
   roles:
     - role: jdk
     - role: ntpd
     - role: docker
-    - role: web-app
+    - role: api
 - hosts: localhost
   connection: local
   gather_facts: False

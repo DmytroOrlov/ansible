@@ -1,9 +1,9 @@
 - ec2_vpc_net:
-    name: ire.web
+    name: ire.api
     cidr_block: 172.31.0.0/16
     region: "{{ region }}"
     tags:
-      Name: ire.web
+      Name: ire.api
     state: "{{ state | default('present') }}"
   register: vpc
 #- debug: var=vpc

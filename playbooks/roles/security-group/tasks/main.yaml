@@ -1,7 +1,7 @@
 - ec2_vpc_net_facts:
     region: "{{ region }}"
     #filters:
-      #"tag:Name": ire.web
+      #"tag:Name": ire.api
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
@@ -22,9 +22,9 @@
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
-- name: add web security group
+- name: add api security group
   ec2_group:
-    name: "{{ web_group }}"
+    name: "{{ api_group }}"
     region: "{{ region }}"
     vpc_id: "{{ vpc_id }}"
     description: http port enabled

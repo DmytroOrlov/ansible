@@ -21,7 +21,7 @@
     backup_retention: 7
     publicly_accessible: no
     tags:
-      Name: ire.web
+      Name: ire.api
     upgrade: yes
     wait: yes
     license_model: postgresql-license

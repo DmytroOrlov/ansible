@@ -1,7 +1,7 @@
 - ec2_vpc_net_facts:
     region: "{{ region }}"
     #filters:
-      #"tag:Name": ire.web
+      #"tag:Name": ire.api
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
   register: vpc
@@ -15,7 +15,7 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: subnet
 #- debug: msg={{ subnet }}
-- name: Provision ire.web instance
+- name: Provision ire.api instance
   ec2:
     region: "{{ region }}"
     key_name: "{{ key_name }}"
@@ -26,10 +26,10 @@
     vpc_subnet_id: "{{ items[0] }}"
     exact_count: "{{ ec2_count }}"
     count_tag:
-      Name: ire.web
+      Name: ire.api
       Zone: "{{ availability_zone }}"
     instance_tags:
-      Name: ire.web
+      Name: ire.api
       Zone: "{{ availability_zone }}"
     wait: "{{ wait | default('no') }}"
     aws_access_key: "{{ aws_access_key }}"

@@ -1,0 +1,18 @@
+- name: template api.service
+  template: src=api.service dest=/etc/systemd/system/api.service
+  become: yes
+  notify:
+    - update service list
+- name: create api folder
+  file:
+    path: ~/api/target/universal/stage
+    state: directory
+- name: synchronize api stage
+  synchronize: src="{{ api_src }}/" dest=~/api/target/universal/stage delete=yes rsync_opts="--exclude=logs"
+  notify:
+    - restart api.service
+- name: enable api.service
+  service: name=api state=started enabled=yes
+  become: yes
+- name: copy Dockerfile
+  copy: src="{{ api_src }}/../../../Dockerfile" dest=~/api/Dockerfile
