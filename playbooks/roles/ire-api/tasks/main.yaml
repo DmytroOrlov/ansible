@@ -18,11 +18,11 @@
 - name: Provision ire.api instance
   ec2:
     region: "{{ region }}"
+    assign_public_ip: yes
     key_name: "{{ key_name }}"
     image: "{{ ami_id }}"
     group: "{{ ssh_play_group }}"
     instance_type: "{{ instance_type }}"
-    assign_public_ip: yes
     vpc_subnet_id: "{{ items[0] }}"
     exact_count: "{{ ec2_count }}"
     count_tag:

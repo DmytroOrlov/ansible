@@ -5,4 +5,4 @@
     region: "{{ region }}"
     name: "{{ key_name }}"
     key_material: "{{ item }}"
-  with_file: "file/id_rsa.pub"
+  with_file: "file/{{ key_name }}/id_rsa.pub"

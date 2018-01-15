@@ -9,7 +9,6 @@
 #- debug: var=group_facts
 - rds:
     command: create
-    #apply_immediately: yes
     multi_zone: yes
     instance_name: postgres
     db_engine: postgres
