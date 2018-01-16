@@ -51,3 +51,4 @@
   user: ubuntu
   roles:
     - role: docker-build
+    - role: docker-postgres

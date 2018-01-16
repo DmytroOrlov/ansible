@@ -1,11 +1,12 @@
 [Unit]
 Description=api
-Wants=network.target
 After=network.target
 
 [Service]
 ExecStart=/home/ubuntu/api/target/universal/stage/bin/{{ api_bin }} -Dpidfile.path=/dev/null -Dconfig.file=/home/ubuntu/api/production.conf
 Restart=always
+User=ubuntu
+Group=ubuntu
 
 [Install]
 WantedBy=multi-user.target
