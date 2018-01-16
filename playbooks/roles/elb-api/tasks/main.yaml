@@ -29,7 +29,7 @@
     health_check_interval: 5
     targets: "{{ ec2_facts | json_query('instances[*].{Id: instance_id}') | map('combine', {'Port':9000}) | list }}"
     state: present
-    wait_timeout: 180
+    wait_timeout: 210
     wait: True
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
