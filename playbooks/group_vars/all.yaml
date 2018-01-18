@@ -5,6 +5,7 @@ instance_type: t2.micro
 rds_instance_type: db.t2.micro
 dns_zone: bibliman.com
 api_domain: api
+certificate_arn: arn:aws:acm:eu-west-1:106759786701:certificate/c751f3c9-3b0c-4df2-bcf4-7a9f12d5443e
 api_src: ../../rds-test/target/universal/stage
 api_bin: rds-test
 
