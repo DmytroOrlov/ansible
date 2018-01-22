@@ -1,0 +1,6 @@
+- block:
+  - name: install open-jdk
+    package:
+      name: default-jdk
+      state: latest
+  become: yes

@@ -37,7 +37,7 @@
   user: ubuntu
   name: Configure ire.api
   roles:
-    - role: jdk
+    - role: default-jdk
     - role: ntpd
     - role: docker
     - role: api
