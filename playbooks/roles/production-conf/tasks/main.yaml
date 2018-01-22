@@ -15,7 +15,7 @@
     aws_secret_key: "{{ aws_secret_key }}"
   register: rds_facts
 #- debug: var=rds_facts
-- set_fact: postgres={{ rds_facts.instance.endpoint }}
+- set_fact: postgres_host={{ rds_facts.instance.endpoint }}
 #- debug: var=postgres
 - name: create api folder
   file:
