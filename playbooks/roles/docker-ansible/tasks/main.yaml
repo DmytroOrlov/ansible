@@ -1,0 +1,10 @@
+---
+- block:
+  - name: install python-pip
+    package:
+      name: python-pip
+      state: latest
+  - name: install docker-py
+    pip:
+      name: docker-py
+      state: present

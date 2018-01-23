@@ -1,0 +1,6 @@
+- name: remove dnsmasq
+  lineinfile:
+    path: /etc/NetworkManager/NetworkManager.conf
+    state: absent
+    regexp: '^dns=dnsmasq$'
+  become: yes

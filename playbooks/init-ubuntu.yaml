@@ -6,5 +6,5 @@
     - role: jdk
     - role: vim
     - role: screen
-    - role: docker
-    - role: cjdns
+    - role: disable-dnsmasq
+    - role: docker-ansible
