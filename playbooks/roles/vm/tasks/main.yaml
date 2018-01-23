@@ -1,5 +1,5 @@
 - name: increase vm
-- sysctl:
+  sysctl:
     name: vm.max_map_count
     value: 262144
     state: present
