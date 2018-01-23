@@ -3,4 +3,5 @@
     path: /etc/NetworkManager/NetworkManager.conf
     state: absent
     regexp: '^dns=dnsmasq$'
+  notify: restart network-manager
   become: yes

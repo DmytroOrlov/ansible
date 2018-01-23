@@ -8,3 +8,5 @@
     - role: screen
     - role: disable-dnsmasq
     - role: docker-ansible
+    - role: docker-registry
+    - role: vm
