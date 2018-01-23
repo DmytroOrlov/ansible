@@ -1,6 +1,6 @@
 - name: remove dnsmasq
   lineinfile:
     path: /etc/sysctl.conf
-    state: there
+    state: present
     regexp: '^vm.max_map_count=262144$'
   become: yes
