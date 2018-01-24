@@ -7,6 +7,6 @@
     - role: vim
     - role: screen
     - role: disable-dnsmasq
+    - role: vm
     - role: docker-ansible
     - role: docker-registry
-    - role: vm

@@ -8,3 +8,4 @@
     pip:
       name: docker-py
       state: present
+  become: yes
