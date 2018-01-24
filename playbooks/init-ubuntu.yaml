@@ -1,6 +1,10 @@
 # ansible-playbook --inventory=inventory/ubuntu init-ubuntu.yaml
 ---
 - hosts: ubuntu
+  gather_facts: False
+  roles:
+    - role: python-minimal
+- hosts: ubuntu
   roles:
     - role: sshd
     - role: jdk
