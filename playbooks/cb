@@ -1,0 +1,1 @@
+sudo killall cjdroute; $HOME/repo/ansible/playbooks/files/mac/cjdroute --genconf | sudo $HOME/repo/ansible/playbooks/files/mac/cjdroute --nobg
