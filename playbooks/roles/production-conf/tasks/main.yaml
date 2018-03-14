@@ -17,10 +17,6 @@
 #- debug: var=rds_facts
 - set_fact: postgres_host={{ rds_facts.instance.endpoint }}
 #- debug: var=postgres
-- name: create api folder
-  file:
-    path: ~/api/target/universal/stage
-    state: directory
 - name: template production.conf
   template: src=production.conf dest=~/api/production.conf
   notify:
