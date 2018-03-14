@@ -3,7 +3,7 @@ Description=api
 After=network.target
 
 [Service]
-ExecStart=/home/ubuntu/api/target/universal/stage/bin/{{ api_bin }} -Dpidfile.path=/dev/null -Dconfig.file=/home/ubuntu/api/production.conf
+ExecStart=/home/ubuntu/api/target/universal/stage/bin/{{ api_bin }} -Dhttp.port=8080 -Dpidfile.path=/dev/null -Dconfig.file=/home/ubuntu/api/production.conf
 Restart=always
 User=ubuntu
 Group=ubuntu

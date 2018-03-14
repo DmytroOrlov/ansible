@@ -20,14 +20,14 @@
     name: tg-api
     region: "{{ region }}"
     protocol: http
-    port: 9000
+    port: 8080
     vpc_id: "{{ vpc_id }}"
     health_check_path: /health
     healthy_threshold_count: 2
     unhealthy_threshold_count: 2
     health_check_timeout: 2
     health_check_interval: 5
-    targets: "{{ ec2_facts | json_query('instances[*].{Id: instance_id}') | map('combine', {'Port':9000}) | list }}"
+    targets: "{{ ec2_facts | json_query('instances[*].{Id: instance_id}') | map('combine', {'Port':8080}) | list }}"
     state: present
     wait_timeout: 240
     wait: True

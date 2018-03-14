@@ -18,7 +18,7 @@
         ports: 22
         cidr_ip: 0.0.0.0/0
       - proto: tcp
-        ports: 9000
+        ports: 8080
         cidr_ip: 0.0.0.0/0
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
