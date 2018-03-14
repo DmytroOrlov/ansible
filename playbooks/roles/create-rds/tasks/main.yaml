@@ -23,6 +23,7 @@
       Name: ire.api
     upgrade: yes
     wait: yes
+    wait_timeout: 360
     license_model: postgresql-license
     vpc_security_groups: "{{ group_facts.security_groups[0].group_id }}"
     region: "{{ region }}"

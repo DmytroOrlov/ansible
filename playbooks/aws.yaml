@@ -47,8 +47,8 @@
   user: ubuntu
   roles:
     - role: production-conf
-- hosts: ec2hosts
-  user: ubuntu
-  roles:
-    - role: docker-build
-    - role: docker-postgres
+#- hosts: ec2hosts
+  #user: ubuntu
+  #roles:
+    #- role: docker-build
+    #- role: docker-postgres
