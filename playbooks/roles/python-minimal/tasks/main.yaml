@@ -1,4 +1,3 @@
 - name: Install python2 for Ansible
-  raw: test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)
+  raw: test -x /usr/bin/python || apt-get update && apt-get -y install python-minimal
   become: yes
-  changed_when: False
