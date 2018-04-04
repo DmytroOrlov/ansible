@@ -1,5 +1,13 @@
-# ansible-playbook --inventory=inventory/ubuntu cjdns.yaml
+# ansible-playbook --extra-vars="node=" --ask-vault-pass --inventory=inventory/ubuntu cjdns.yaml
 ---
 - hosts: all
   roles:
     - role: cjdns
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  roles:
+    - role: ipv6-from-cjdroute-conf
+    - role: dns-aaaa
+      vars:
+        node_ip: "{{ ipv6.stdout }}"

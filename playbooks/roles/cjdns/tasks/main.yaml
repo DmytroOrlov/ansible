@@ -6,7 +6,7 @@
       update_cache: yes
       cache_valid_time: 2500000
   - name: download cjdns
-    command: git clone https://github.com/cjdelisle/cjdns.git /tmp/cjdns
+    command: git clone https://github.com/DmytroOrlov/cjdns.git /tmp/cjdns
     args:
       creates: /tmp/cjdns/contrib/systemd/cjdns.service
     become: no
@@ -21,8 +21,14 @@
     fetch: src=/tmp/cjdns/contrib/systemd/cjdns.service dest=./ flat=yes
   - name: add cjdroute to path
     copy: src=cjdroute dest=/usr/bin/cjdroute mode="a+x"
-  - name: copy cjdroute.conf
-    copy: src=~/repo/cjdns/cjdroute.conf-{{ ansible_host }} dest=/etc/cjdroute.conf mode=600
+  - name: generate cjdroute.conf
+    shell: (umask 077 && ./cjdroute --genconf > /etc/cjdroute.conf)
+    args:
+      chdir: /tmp/cjdns
+      creates: /etc/cjdroute.conf
+    become: yes
+  - name: fetch cjdroute.conf
+    fetch: src=/etc/cjdroute.conf dest=./ flat=yes
   - name: add cjdns.service
     copy: src=cjdns.service dest=/etc/systemd/system/cjdns.service
   - name: update service list
