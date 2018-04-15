@@ -1,22 +1,95 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
+#
+# GW=$(route -n get default | grep gateway | cut -d':' -f2) NAME=$(hostname -s) vagrant up
 
-$vm_memory = 2048
-$vm_cpus = 2
+VAGRANTFILE_API_VERSION = '2'
 
-Vagrant.configure(2) do |config|
-  config.vm.box = "ubuntu/xenial64"
-  #config.vm.box = "parallels/ubuntu-16.04"
+NOSDS = 3
+DISKS = 1
 
-  #config.vm.network "public_network", ip: "192.168.1.185", bridge: "en0: Wi-Fi (AirPort)"
-  config.vm.provider :virtualbox do |vb|
-    vb.memory = $vm_memory
-    vb.cpus = $vm_cpus
+SUPPORTED_OS = {
+  "ubuntu"        => {box: "ubuntu/xenial64"},
+  "kubespray"     => {box: "bento/ubuntu-16.04"},
+  "parallels"     => {box: "parallels/ubuntu-16.04"},
+  "ceph"          => {box: "ceph/ubuntu-xenial"}
+}
+OS = "ceph"
+BOX = SUPPORTED_OS[OS][:box]
+
+VM_GUI = false
+VM_MEMORY = 512
+VM_CPUS = 1
+
+#ansible_provision = proc do |ansible|
+  #ansible.playbook = "provision-vagrant.yaml"
+  #ansible.groups = {
+    #'default' => (0..NOSDS - 1).map { |j| "ceph-#{j}" }
+  #}
+  #ansible.extra_vars = {
+    #ansible_python_interpreter: "/usr/bin/python2.7"
+  #}
+#end
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = BOX
+
+  config.vm.provider :virtualbox do |v,override|
+    override.vm.synced_folder '.', '/home/vagrant/sync', disabled: true
   end
-  config.vm.provision :ansible do |ansible|
-    ansible.playbook = "vagrant.yaml"
-    ansible.extra_vars = {
-      ansible_python_interpreter: "/usr/bin/python2.7"
-    }
+  config.vm.provider :virtualbox do |vb|
+    vb.gui = VM_GUI
+    vb.memory = VM_MEMORY
+    vb.cpus = VM_CPUS
+  end
+  config.vm.network "public_network",
+    bridge: "en0: Wi-Fi (AirPort)"
+    #ip: "192.168.1.185"
+  # delete default gw on eth0
+  config.vm.provision "shell",
+    run: "always",
+    inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"sudo route del default gw \" $2; }'`"
+  # set correct default gw
+  if ENV['GW']
+    config.vm.provision "shell",
+      run: "always",
+      inline: "sudo route add default gw " + ENV['GW']
+  end
+
+  (0..NOSDS - 1).each do |i|
+    config.vm.define "ceph-#{i}" do |osd|
+      osd.vm.hostname = "ceph-#{ENV['NAME']}-#{i}"
+      osd.vm.provider :virtualbox do |vb|
+        unless File.exist?("disk-#{i}-0.vdi")
+          vb.customize ['storagectl', :id,
+                        '--name', 'OSD Controller',
+                        '--add', 'scsi']
+        end
+
+        (0..DISKS - 1).each do |d|
+          vb.customize ['createhd',
+                        '--filename', "disk-#{i}-#{d}",
+                        '--size', '11000'] unless File.exist?("disk-#{i}-#{d}.vdi")
+          vb.customize ['storageattach', :id,
+                        '--storagectl', 'OSD Controller',
+                        '--port', 3 + d,
+                        '--device', 0,
+                        '--type', 'hdd',
+                        '--medium', "disk-#{i}-#{d}.vdi"]
+        end
+      end
+      # Run the provisioner after the last machine comes up
+      #osd.vm.provision 'ansible', &ansible_provision if i == (NOSDS - 1)
+      osd.vm.provision :ansible do |ansible|
+        ansible.groups = {
+          'default' => "ceph-#{i}"
+        }
+        ansible.extra_vars = {
+          node: "ceph-#{ENV['NAME']}-#{i}"
+        }
+        #ansible.verbose = '-vvvv'
+        ansible.playbook = "provision-vagrant.yaml"
+      end
+    end
   end
 end

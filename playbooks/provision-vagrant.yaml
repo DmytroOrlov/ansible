@@ -1,0 +1,24 @@
+---
+- hosts: default
+  gather_facts: no
+  roles:
+    - role: python-minimal
+- hosts: default
+  become: yes
+  tasks:
+    - name: install screen
+      package:
+        name: miredo
+        state: present
+      become: yes
+  roles:
+    - cjdns
+- hosts: default
+  roles:
+    - role: ipv6-from-cjdroute-conf
+      delegate_to: localhost
+    - role: dns-aaaa
+      delegate_to: localhost
+      #delegate_facts: True
+      vars:
+        node_ip: "{{ ipv6.stdout }}"

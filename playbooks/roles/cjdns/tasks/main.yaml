@@ -1,8 +1,8 @@
 ---
 - block:
-  - name: install git,nodejs,gcc,make
+  - name: install git,gcc,make
     apt:
-      name: git,nodejs,gcc,make
+      name: git,gcc,make
       update_cache: yes
       cache_valid_time: 2500000
   - name: download cjdns
@@ -34,5 +34,10 @@
   - name: update service list
     command: systemctl daemon-reload
   - name: start service
+    register: result
+    until: result|succeeded
+    ignore_errors: yes
+    delay: 1
+    retries: 6
     service: name=cjdns state=restarted enabled=yes
   become: yes
