@@ -5,7 +5,7 @@
 
 VAGRANTFILE_API_VERSION = '2'
 
-NOSDS = 3
+NOSDS = 1
 DISKS = 1
 
 SUPPORTED_OS = {
@@ -43,7 +43,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.cpus = VM_CPUS
   end
   config.vm.network "public_network",
-    bridge: "en0: Wi-Fi (AirPort)"
+    #bridge: "en0: Wi-Fi (AirPort)"
+    bridge: "en4: Thunderbolt Ethernet"
     #ip: "192.168.1.185"
   # delete default gw on eth0
   config.vm.provision "shell",
@@ -69,7 +70,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         (0..DISKS - 1).each do |d|
           vb.customize ['createhd',
                         '--filename', "disk-#{i}-#{d}",
-                        '--size', '11000'] unless File.exist?("disk-#{i}-#{d}.vdi")
+                        '--size', '40000'] unless File.exist?("disk-#{i}-#{d}.vdi")
           vb.customize ['storageattach', :id,
                         '--storagectl', 'OSD Controller',
                         '--port', 3 + d,
