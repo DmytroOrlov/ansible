@@ -43,8 +43,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     vb.cpus = VM_CPUS
   end
   config.vm.network "public_network",
-    #bridge: "en0: Wi-Fi (AirPort)"
-    bridge: "en4: Thunderbolt Ethernet"
+    bridge: "en0: Wi-Fi (AirPort)"
+    #bridge: "en4: Thunderbolt Ethernet"
     #ip: "192.168.1.185"
   # delete default gw on eth0
   config.vm.provision "shell",
