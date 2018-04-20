@@ -1,0 +1,41 @@
+- ec2_vpc_net_facts:
+    region: "{{ region }}"
+    #filters:
+      #"tag:Name": "{{ ec2_tag }}"
+    #aws_access_key: "{{ aws_access_key }}"
+    #aws_secret_key: "{{ aws_secret_key }}"
+  register: vpc
+#- debug: var=vpc
+- set_fact: vpc_id={{ vpc.vpcs[0].id }}
+- ec2_vpc_subnet_facts:
+    region: "{{ region }}"
+    filters:
+      vpc-id: "{{ vpc_id }}"
+    #aws_access_key: "{{ aws_access_key }}"
+    #aws_secret_key: "{{ aws_secret_key }}"
+  register: subnet
+#- debug: msg={{ subnet }}
+- name: Provision ec2 instance
+  ec2:
+    region: "{{ region }}"
+    assign_public_ip: yes
+    key_name: "{{ key_name }}"
+    image: "{{ ami_id }}"
+    group: "{{ ssh_play_group }}"
+    instance_type: "{{ instance_type }}"
+    vpc_subnet_id: "{{ items[0] }}"
+    exact_count: "{{ ec2_count }}"
+    count_tag:
+      Name: "{{ ec2_tag }}"
+      Zone: "{{ availability_zone }}"
+    instance_tags:
+      Name: "{{ ec2_tag }}"
+      Zone: "{{ availability_zone }}"
+    wait: "{{ wait | default('no') }}"
+    #aws_access_key: "{{ aws_access_key }}"
+    #aws_secret_key: "{{ aws_secret_key }}"
+  vars:
+    subnet_query: "subnets[?availability_zone=='{{ availability_zone }}'].id"
+    items: "{{ subnet | json_query(subnet_query) }}"
+  register: ec2
+#- debug: var=ec2

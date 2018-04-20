@@ -1,0 +1,40 @@
+# ANSIBLE_HOST_KEY_CHECKING=False ansible-playbook --key-file=~/.ssh/eu-central-1/id_rsa cjdns-aws.yaml
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  vars:
+    ec2_count: 1
+    wait: yes
+    region: eu-central-1
+    ec2_tag: cjdns
+  roles:
+    - role: keypair
+      vars:
+        key_name: "{{ eu-central-1 }}"
+    - role: security-group
+    - role: ec2
+      vars:
+        availability_zone: "{{ region }}a"
+        ami_id: ami-7c412f13
+    - role: collect-ec2hosts
+- hosts: ec2hosts
+  user: ubuntu
+  gather_facts: False
+  name: PreConfigure ec2
+  roles:
+    - role: python-minimal
+- hosts: ec2hosts
+  user: ubuntu
+  name: Configure ec2
+  roles:
+    - role: cjdns
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  roles:
+    - role: ipv6-from-cjdroute-conf
+    - role: dns-aaaa
+      vars:
+        node: "{{ ec2_tag }}"
+        node_ip: "{{ ipv6.stdout }}"
