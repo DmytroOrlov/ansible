@@ -9,8 +9,8 @@
     - role: sshd
     - role: jdk
     - role: vim
-    - role: screen
-    - role: disable-dnsmasq
+    #- role: screen
+    #- role: disable-dnsmasq
     - role: vm
     - role: docker-ansible
     - role: docker-registry
