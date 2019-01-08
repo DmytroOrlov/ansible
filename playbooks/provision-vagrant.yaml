@@ -6,7 +6,7 @@
 - hosts: default
   become: yes
   tasks:
-    - name: install screen
+    - name: install miredo for ipv6
       package:
         name: miredo
         state: present

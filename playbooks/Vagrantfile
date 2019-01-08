@@ -3,8 +3,15 @@
 #
 # GW=$(route -n get default | grep gateway | cut -d':' -f2) NAME=$(hostname -s) vagrant up
 
+#require 'yaml'
+#require 'time'
 VAGRANTFILE_API_VERSION = '2'
 
+#config_file=File.expand_path(File.join(File.dirname(__FILE__), 'vagrant_variables.yml'))
+#settings=YAML.load_file(config_file)
+
+#LABEL_PREFIX    = settings['label_prefix'] ? settings['label_prefix'] + "-" : ""
+#NMONS           = settings['mon_vms']
 NOSDS = 1
 DISKS = 1
 
