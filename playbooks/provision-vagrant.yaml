@@ -15,10 +15,16 @@
     - cjdns
 - hosts: default
   roles:
-    - role: ipv6-from-cjdroute-conf
-      delegate_to: localhost
+    - role: external-ipv6
     - role: dns-aaaa
       delegate_to: localhost
       #delegate_facts: True
       vars:
         node_ip: "{{ ipv6.stdout }}"
+    - role: ipv6-from-cjdroute-conf
+      delegate_to: localhost
+    - role: dns-aaaa
+      delegate_to: localhost
+      vars:
+        suffix: ".c"
+        node_ip: "{{ cjdns_ipv6.stdout }}"

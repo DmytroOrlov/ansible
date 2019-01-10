@@ -1,4 +1,4 @@
-- name: get ipv6
+- name: get cjdns_ipv6
   shell: cat cjdroute.conf | sed -e 's/\/\/.*$//' | tr '\n' ' ' | sed -e 's/\/\*.*\*\///' | jq --raw-output .ipv6
-  register: ipv6
-- debug: var=ipv6
+  register: cjdns_ipv6
+- debug: var=cjdns_ipv6

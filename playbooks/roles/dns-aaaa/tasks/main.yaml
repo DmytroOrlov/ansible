@@ -3,7 +3,7 @@
     state: present
     overwrite: yes
     zone: bibliman.com
-    record: "{{ node }}.bibliman.com"
+    record: "{{ node }}{{ suffix | default('') }}.bibliman.com"
     type: AAAA
     value: "{{ node_ip }}"
     #aws_access_key: "{{ aws_access_key }}"

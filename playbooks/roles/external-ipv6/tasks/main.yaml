@@ -1,0 +1,4 @@
+- name: get ipv6
+  command: curl -6 icanhazip.com
+  register: ipv6
+- debug: var=ipv6
