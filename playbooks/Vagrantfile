@@ -17,11 +17,11 @@ DISKS = 1
 
 SUPPORTED_OS = {
   "ubuntu"        => {box: "ubuntu/xenial64"},
-  "kubespray"     => {box: "bento/ubuntu-16.04"},
+  "kubespray"     => {box: "bento/ubuntu-18.04"},
   "parallels"     => {box: "parallels/ubuntu-16.04"},
   "ceph"          => {box: "ceph/ubuntu-xenial"}
 }
-OS = "ceph"
+OS = "kubespray"
 BOX = SUPPORTED_OS[OS][:box]
 
 VM_GUI = false
