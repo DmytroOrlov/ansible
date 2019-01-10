@@ -93,7 +93,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           'default' => "ceph-#{i}"
         }
         ansible.extra_vars = {
-          node: "ceph-#{ENV['NAME']}-#{i}"
+          node: "ceph-#{ENV['NAME']}-#{i}.c"
         }
         #ansible.verbose = '-vvvv'
         ansible.playbook = "provision-vagrant.yaml"
