@@ -1,0 +1,8 @@
+- hosts: localhost
+  connection: local
+  gather_facts: False
+  tasks:
+  - replace:
+      path: ~/.ssh/config
+      regexp: '    #IdentityFile ~/.ssh/kre/id_rsa'
+      replace: '    IdentityFile ~/.ssh/kre/id_rsa'

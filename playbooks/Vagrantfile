@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 #
-# GW=$(route -n get default | grep gateway | cut -d':' -f2) NAME=$(hostname -s) vagrant up
+# GW=$(route -n get default | grep gateway | cut -d':' -f2) NAME=".$(hostname -s)" vagrant up
 
 #require 'yaml'
 #require 'time'
@@ -51,14 +51,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
   config.vm.network "public_network",
     bridge: "en0: Wi-Fi (AirPort)"
+    #bridge: "en0: Ethernet"
     #bridge: "en4: Thunderbolt Ethernet"
     #ip: "192.168.1.185"
-  # delete default gw on eth0
-  config.vm.provision "shell",
-    run: "always",
-    inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"sudo route del default gw \" $2; }'`"
-  # set correct default gw
   if ENV['GW']
+    # delete default gw on eth0
+    config.vm.provision "shell",
+      run: "always",
+      inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"sudo route del default gw \" $2; }'`"
+    # set correct default gw
     config.vm.provision "shell",
       run: "always",
       inline: "sudo route add default gw " + ENV['GW']
@@ -66,7 +67,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   (0..NOSDS - 1).each do |i|
     config.vm.define "ceph-#{i}" do |osd|
-      osd.vm.hostname = "ceph-#{ENV['NAME']}-#{i}"
+      osd.vm.hostname = "ceph-#{i}"
       osd.vm.provider :virtualbox do |vb|
         unless File.exist?("disk-#{i}-0.vdi")
           vb.customize ['storagectl', :id,
@@ -93,7 +94,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           'default' => "ceph-#{i}"
         }
         ansible.extra_vars = {
-          node: "ceph-#{ENV['NAME']}-#{i}"
+          node: "ceph-#{i}#{ENV['NAME']}"
         }
         #ansible.verbose = '-vvvv'
         ansible.playbook = "provision-vagrant.yaml"
