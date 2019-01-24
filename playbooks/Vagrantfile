@@ -5,7 +5,6 @@
 
 #require 'yaml'
 #require 'time'
-VAGRANTFILE_API_VERSION = '2'
 
 #config_file=File.expand_path(File.join(File.dirname(__FILE__), 'vagrant_variables.yml'))
 #settings=YAML.load_file(config_file)
@@ -24,7 +23,6 @@ SUPPORTED_OS = {
 OS = "kubespray"
 BOX = SUPPORTED_OS[OS][:box]
 
-VM_GUI = false
 VM_MEMORY = 512
 VM_CPUS = 1
 
@@ -38,14 +36,14 @@ VM_CPUS = 1
   #}
 #end
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+Vagrant.configure("2") do |config|
   config.vm.box = BOX
 
   config.vm.provider :virtualbox do |v,override|
     override.vm.synced_folder '.', '/home/vagrant/sync', disabled: true
   end
   config.vm.provider :virtualbox do |vb|
-    vb.gui = VM_GUI
+    vb.gui = false
     vb.memory = VM_MEMORY
     vb.cpus = VM_CPUS
   end
