@@ -23,7 +23,7 @@ SUPPORTED_OS = {
 OS = "kubespray"
 BOX = SUPPORTED_OS[OS][:box]
 
-VM_MEMORY = 512
+VM_MEMORY = 2048
 VM_CPUS = 1
 
 #ansible_provision = proc do |ansible|
@@ -47,21 +47,25 @@ Vagrant.configure("2") do |config|
     vb.memory = VM_MEMORY
     vb.cpus = VM_CPUS
   end
-  config.vm.network "public_network",
-    bridge: "en0: Wi-Fi (AirPort)"
-    #bridge: "en0: Ethernet"
-    #bridge: "en4: Thunderbolt Ethernet"
-    #ip: "192.168.1.185"
-  if ENV['GW']
-    # delete default gw on eth0
-    config.vm.provision "shell",
-      run: "always",
-      inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"sudo route del default gw \" $2; }'`"
-    # set correct default gw
-    config.vm.provision "shell",
-      run: "always",
-      inline: "sudo route add default gw " + ENV['GW']
-  end
+  config.vm.network "forwarded_port", guest: 22, host: 2222
+  config.vm.network "forwarded_port", guest: 10250, host: 10250
+  config.vm.network "forwarded_port", guest: 2379, host: 2379
+  config.vm.network "forwarded_port", guest: 2380, host: 2380
+  #config.vm.network "public_network",
+    #bridge: "en0: Wi-Fi (AirPort)"
+    ##bridge: "en0: Ethernet"
+    ##bridge: "en4: Thunderbolt Ethernet"
+    ##ip: "192.168.1.185"
+  #if ENV['GW']
+    ## delete default gw on eth0
+    #config.vm.provision "shell",
+      #run: "always",
+      #inline: "eval `route -n | awk '{ if ($8 ==\"eth0\" && $2 != \"0.0.0.0\") print \"sudo route del default gw \" $2; }'`"
+    ## set correct default gw
+    #config.vm.provision "shell",
+      #run: "always",
+      #inline: "sudo route add default gw " + ENV['GW']
+  #end
 
   (0..NOSDS - 1).each do |i|
     config.vm.define "ceph-#{i}" do |osd|
