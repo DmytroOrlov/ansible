@@ -6,6 +6,9 @@
 - hosts: default
   become: yes
   tasks:
+    - lineinfile:
+        path: /etc/netplan/50-vagrant.yaml
+        line: '      - 10.91.0.0/16'
     - name: install miredo for ipv6
       package:
         name: miredo
