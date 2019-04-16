@@ -10,7 +10,8 @@
     args:
       creates: /tmp/cjdns/contrib/systemd/cjdns.service
     become: no
-  - shell: ./do
+  - name: build cjdns
+    shell: ./do
     args:
       chdir: /tmp/cjdns
       creates: /tmp/cjdns/cjdroute
