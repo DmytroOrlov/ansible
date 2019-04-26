@@ -23,7 +23,7 @@ SUPPORTED_OS = {
 OS = "kubespray"
 BOX = SUPPORTED_OS[OS][:box]
 
-VM_MEMORY = 2048
+VM_MEMORY = 700
 VM_CPUS = 1
 
 #ansible_provision = proc do |ansible|
@@ -47,10 +47,10 @@ Vagrant.configure("2") do |config|
     vb.memory = VM_MEMORY
     vb.cpus = VM_CPUS
   end
-  config.vm.network "forwarded_port", guest: 22, host: 2222
-  config.vm.network "forwarded_port", guest: 10250, host: 10250
-  config.vm.network "forwarded_port", guest: 2379, host: 2379
-  config.vm.network "forwarded_port", guest: 2380, host: 2380
+  #config.vm.network "forwarded_port", guest: 22, host: 2222
+  #config.vm.network "forwarded_port", guest: 10250, host: 10250
+  #config.vm.network "forwarded_port", guest: 2379, host: 2379
+  #config.vm.network "forwarded_port", guest: 2380, host: 2380
   #config.vm.network "public_network",
     #bridge: "en0: Wi-Fi (AirPort)"
     ##bridge: "en0: Ethernet"
